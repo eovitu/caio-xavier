@@ -12,4 +12,3 @@ export const viewport: Viewport = { themeColor: '#171417' };
 export default function Layout({children}: Readonly<{children: React.ReactNode}>) {
   return <html lang="pt-BR"><body>{children}<ServiceWorker /></body></html>;
 }
-

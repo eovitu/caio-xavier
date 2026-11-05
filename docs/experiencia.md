@@ -17,4 +17,3 @@ A base contém manifest, ícone e uma tela offline para navegações sem rede. O
 ## Revisão visual
 
 Teste a primeira dobra, as três vistas por rolagem e teclado, a passagem da linha para a história e o layout estreito. Verifique movimento reduzido e a ilustração de fallback quando WebGL estiver indisponível.
-

@@ -109,4 +109,3 @@ export default function Home() {
     <footer><strong>SaiDaReta</strong><a href="#peca">Voltar ao começo ↑</a></footer>
   </MotionConfig>;
 }
-
