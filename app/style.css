@@ -1,0 +1,58 @@
+:root{color-scheme:dark;--paper:#f3eee5;--ink:#171417;--pink:#ff66ad;--orange:#ff6a26}
+*{box-sizing:border-box}
+html{scroll-padding-top:5rem}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid #ffd773;outline-offset:5px}
+.skip{position:fixed;top:12px;left:12px;z-index:5;padding:14px;background:#fff;color:#171417;transform:translateY(-160%)}
+.skip:focus{transform:none}
+.header{height:68px;position:fixed;inset:0 0 auto;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:#171417ed;border-bottom:1px solid #ffffff2a}
+.header a{display:inline-flex;align-items:center;min-height:44px}
+.brand{font-size:clamp(17px,2vw,26px);font-weight:900;letter-spacing:-.065em;gap:7px}
+nav{display:flex;gap:clamp(10px,3vw,42px);font-size:clamp(12px,1.5vw,16px)}
+nav a:hover,footer a:hover{color:var(--pink)}
+.stage{height:340svh;--progress:0}
+.sticky{position:sticky;top:0;min-height:100svh;padding:88px 5vw 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:2vw;background:radial-gradient(ellipse at 80% 44%,#54202e 0%,#2b182d 35%,#171417 72%)}
+.intro{z-index:1}
+.eyebrow,.index,.caption{font-family:monospace;font-size:clamp(11px,1.25vw,15px);letter-spacing:.05em}
+.eyebrow span,.index{color:var(--pink)}
+h1,h2,.headline{margin:20px 0;white-space:pre-line;font-size:clamp(54px,8.45vw,144px);line-height:.82;letter-spacing:-.087em;font-weight:950}
+.lede,.story-copy p,.street p{font-size:clamp(16px,1.85vw,27px);line-height:1.43;max-width:34ch}
+.lede{min-height:3em}
+.views{display:flex;flex-wrap:wrap;gap:7px;margin-top:28px}
+.views button{min-height:44px;padding:0 12px;background:#171417;color:var(--paper);border:1px solid #bda6b9;cursor:pointer}
+.views button[aria-pressed=true]{background:var(--pink);color:#171417;border-color:var(--pink)}
+.showcase{position:relative;height:min(72svh,780px);min-height:280px;border:1px solid #f3eee54a;isolation:isolate}
+.model,.model-fallback{position:absolute;inset:0;pointer-events:none}
+.model canvas{display:block}
+.model-fallback img{object-fit:contain;padding:14%}
+.showcase:has(.model[data-ready]) .model-fallback{visibility:hidden}
+.index,.caption,.meter{position:absolute;z-index:1}
+.index{top:16px;left:17px}
+.caption{bottom:4px;right:16px}
+.meter{height:3px;background:#ffffff32;left:16px;right:16px;bottom:40px}
+.meter span{display:block;height:100%;background:var(--pink);transform-origin:left;transform:scaleX(var(--progress))}
+.thread{position:relative;min-height:360px;display:grid;place-items:center;background:linear-gradient(160deg,#171417,#54202e 55%,#43251e);isolation:isolate}
+.thread svg{width:100%;height:100%;position:absolute;inset:0;z-index:-1}
+.thread path{fill:none;stroke:var(--orange);stroke-width:4;stroke-dasharray:1}
+.thread p{padding:16px 28px;background:#54202e;font-size:clamp(28px,5vw,66px);letter-spacing:-.06em;font-weight:900}
+.story,.street{display:grid;grid-template-columns:1fr 1fr;min-height:76svh;align-items:stretch}
+.story{background:#43251e}.street{background:#142343}
+.story-copy,.street>div:first-child{padding:clamp(40px,7vw,115px) 5vw}
+.story .eyebrow{color:#ffc575}.street .eyebrow{color:#ffe562}
+.story-image,.street-image{position:relative;min-height:360px}
+.story-image img,.street-image img{object-fit:cover}
+footer{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:30px 5vw;background:#171417}
+footer strong{font-size:clamp(26px,5vw,62px);letter-spacing:-.08em}
+@media(max-width:720px){
+ .sticky{grid-template-columns:1fr;gap:14px;align-content:center;padding:78px 5vw 18px}
+ .showcase{grid-row:1;height:39svh;min-height:190px}
+ .intro h1,.intro .headline{font-size:clamp(43px,11vw,80px);margin:9px 0}
+ .intro .lede{font-size:16px;margin:10px 0;min-height:0}
+ .views{margin-top:10px}.views button{font-size:12px}
+ .story,.street{grid-template-columns:1fr}.story-image,.street-image{min-height:300px}
+ .thread{min-height:260px}
+}
+@media(max-height:630px) and (max-width:720px){.sticky{position:relative}.stage{height:210svh}}
+@media(prefers-reduced-motion:reduce){.stage{height:auto}.sticky{position:relative}.thread path{stroke-dashoffset:0}}
