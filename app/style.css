@@ -1242,3 +1242,40 @@ a:active, button:active { scale: .97; }
 @media (max-height: 649px) {
   .footer { height: auto; min-height: 100svh; grid-template-rows: auto auto auto; gap: 36px; overflow: visible; }
 }
+
+/* Portrait storytelling keeps the photograph and its reading together. */
+@media (max-width: 1000px) {
+  .header { top: max(12px, env(safe-area-inset-top, 0px)); }
+  .hero { padding-top: calc(100px + env(safe-area-inset-top, 0px)); }
+  .footer { padding-top: calc(100px + env(safe-area-inset-top, 0px)); }
+  .detail-tabs button svg { display: none; }
+  .detail-tabs button { position: relative; justify-content: center; min-height: 44px; border: 0; padding: 10px 4px; }
+  .detail-tabs button::after { content: ""; position: absolute; bottom: 0; left: 4px; right: 4px; height: 2px; background: currentColor; opacity: .25; transition: opacity .2s; }
+  .detail-tabs button[aria-pressed="true"] { border: 0; }
+  .detail-tabs button[aria-pressed="true"]::after { opacity: 1; }
+  .street-title { display: none; transform: none; }
+  .street-copy h2 { font-size: clamp(44px, 11vw, 84px); max-width: 100%; line-height: 1.05; text-wrap: balance; }
+  .street-copy p { font-size: clamp(28px, 7.3vw, 48px); }
+  .street-image { height: min(62svh, 620px); }
+}
+@media (max-width: 1000px) and (min-height: 650px) and (orientation: portrait) {
+  .piece { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 12px; height: 100svh; min-height: 100svh; padding: calc(88px + env(safe-area-inset-top, 0px)) 6vw calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .piece .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 0; }
+  .piece .section-heading h2 { font-size: clamp(30px, 4.7svh, 46px); line-height: .98; flex-shrink: 0; }
+  .piece .section-heading p { font-size: 13px; line-height: 1.35; margin: 0; max-width: 19ch; }
+  .detail-layout { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, calc(35svh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))) auto; align-content: start; gap: 10px; min-height: 0; }
+  .detail-image { height: 100%; min-height: 0; }
+  .detail-image .photo img { object-fit: contain; }
+  .detail-side { padding: 0; gap: 8px; min-height: 0; }
+  .detail-tabs { gap: 8px; border: 0; flex-shrink: 0; }
+  .detail-tabs button { font-size: 13px; min-height: 44px; }
+  .detail-description { margin: 0; min-height: 0; }
+  .detail-description h3 { font-size: clamp(23px, 3svh, 28px); line-height: 1.1; }
+  .detail-description p { font-size: 16px; line-height: 1.45; max-width: 45ch; margin-top: 10px; }
+  .detail-note { display: none; }
+}
+@media (min-width: 350px) and (max-width: 1000px) and (min-height: 650px) and (orientation: portrait) and (prefers-reduced-motion: no-preference) {
+  .piece-track { height: 220svh; }
+  .piece-track > .piece { position: sticky; top: 0; }
+  .detail-frame, .detail-copy { transition: none; }
+}
