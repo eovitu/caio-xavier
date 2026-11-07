@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 const links = [
   ["#manifesto", "A ideia"],
@@ -66,7 +66,6 @@ function Photo({
 
 export default function Home() {
   const root = useRef<HTMLDivElement>(null);
-  const header = useRef<HTMLElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const detailContent = useRef<HTMLDivElement>(null);
   const [menu, setMenu] = useState(false);
@@ -225,40 +224,11 @@ export default function Home() {
     };
     hero?.addEventListener("pointermove", move);
     hero?.addEventListener("pointerleave", reset);
-    let lastY = window.scrollY;
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const y = window.scrollY;
-      const head = header.current;
-      if (!head) return;
-      if (Math.abs(y - lastY) > 5) {
-        head.dataset.hidden = String(y > lastY && y > 120);
-        lastY = y;
-      }
-      const scene = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-tone]"),
-      ).find((e) => {
-        const r = e.getBoundingClientRect();
-        return r.top <= 65 && r.bottom > 65;
-      });
-      head.dataset.tone = scene?.dataset.tone || "paper";
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    const onFocus = () => {
-      if (header.current) header.current.dataset.hidden = "false";
-    };
-    const head = header.current;
-    window.addEventListener("scroll", onScroll, { passive: true });
-    head?.addEventListener("focusin", onFocus);
     const refresh = () => {
       if (!disposed) ScrollTrigger.refresh();
     };
     document.fonts.ready.then(refresh);
     window.addEventListener("load", refresh);
-    update();
     return () => {
       disposed = true;
       hero?.removeEventListener("pointermove", move);
@@ -269,12 +239,20 @@ export default function Home() {
       context.revert();
       gsap.ticker.remove(tick);
       lenis?.destroy();
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("load", refresh);
-      head?.removeEventListener("focusin", onFocus);
     };
   }, [reduced]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1001px)");
+    const reset = () => { if (media.matches) setMenu(false); };
+    const outside = (event: PointerEvent) => {
+      if (!(event.target as Element).closest(".header")) setMenu(false);
+    };
+    media.addEventListener("change", reset);
+    document.addEventListener("pointerdown", outside);
+    return () => { media.removeEventListener("change", reset); document.removeEventListener("pointerdown", outside); };
+  }, []);
 
   useEffect(() => {
     if (!menu) return;
@@ -312,11 +290,15 @@ export default function Home() {
   }, [detail, reduced]);
 
   return (
-    <div ref={root}>
+    <div ref={root} onClickCapture={(event) => {
+      const control = (event.target as Element).closest<HTMLElement>("a, button");
+      if (!control || reduced) return;
+      control.animate([{ scale: "1" }, { scale: "0.96" }, { scale: "1" }], { duration: 240, easing: "cubic-bezier(.16,1,.3,1)" });
+    }}>
       <a className="skip" href="#manifesto">
         Pular para o conteúdo
       </a>
-      <header className="header" ref={header} data-menu={menu}>
+      <header className="header" data-menu={menu}>
         <a className="brand" href="#inicio" aria-label="SaiDaReta, início">
           <Image
             src="/brand/assinatura.svg"
@@ -332,6 +314,9 @@ export default function Home() {
             </a>
           ))}
         </nav>
+        <a className="contact-button" href="tel:+5511979879591" aria-label="Ligar para Caio Xavier: (11) 97987-9591">
+          <span>Contato</span><span className="contact-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 3 3 5-2.3 2.4a15 15 0 0 0 5.9 5.9L16 14l5 3c-.4 3-2.1 4.2-4.3 3.8C10.4 19.7 4.3 13.6 3.2 7.3 2.8 5.1 4 3.4 7 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /></svg></span>
+        </a>
         <button
           className="menu-button"
           ref={menuButton}
@@ -345,11 +330,16 @@ export default function Home() {
             <i />
           </span>
         </button>
-        <nav
+        <AnimatePresence initial={false}>
+        {menu && <motion.nav
+          key="mobile-navigation"
+          initial={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 12px)", y: reduced ? 0 : -8 }}
+          animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 12px)", y: 0 }}
+          exit={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 12px)", y: reduced ? 0 : -6 }}
+          transition={{ duration: reduced ? 0 : 0.32, ease: [0.16, 1, 0.3, 1] }}
           className="menu-panel"
           data-lenis-prevent
           id="menu-principal"
-          hidden={!menu}
           aria-label="Menu"
         >
           {links.map(([href, label]) => (
@@ -358,7 +348,8 @@ export default function Home() {
               <Arrow />
             </a>
           ))}
-        </nav>
+        </motion.nav>}
+        </AnimatePresence>
       </header>
       <main>
         <section className="hero" id="inicio" data-tone="paper">
