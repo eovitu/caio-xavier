@@ -15,3 +15,5 @@ Menu disclosure, Escape retorna foco, alvos nativos e foco visível. Painel limi
 Fotografias em public são fornecidas pelo usuário; nenhuma imagem ou fonte proprietária de Augen foi incorporada. Capturas de referência são evidência de estudo, não assets do site.
 
 Refinamento de 6 de novembro: seções e rodapé com largura total e mínimo 100svh, sem limitar crescimento pelo conteúdo. Telefone confirmado tel:+5511979879591; Instagram @originalvier, https://www.instagram.com/originalvier/. Ícone provisório reutiliza o emblema oficial. Fontes locais com licença, sem copiar fonte de Augen.
+
+Direção atual de cenas: detalhes de entrada/reload, limpeza de hash, dimensões e pins estão em docs/scene-transitions-release.md. Essa unidade substitui a decisão anterior de não usar pin: peça e fio possuem agora ScrollTrigger pin/scrub reversível no desktop, por pedido explícito do usuário. Viewports estreitas/curtas e movimento reduzido mantêm fluxo sem pin.
