@@ -1211,7 +1211,7 @@ a:active, button:active { scale: .97; }
 .detail-copy { grid-area: 1 / 1; opacity: 0; transition: opacity .28s var(--ease); }
 .detail-copy[data-active="true"] { opacity: 1; }
 @media (min-width: 1001px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
-  .piece-track { height: 340svh; }
+  .piece-track { height: 220svh; }
   .thread-track { height: 250svh; }
   .piece-track > .piece, .thread-track > .thread { position: sticky; top: 0; height: 100svh; min-height: 100svh; }
   .detail-frame, .detail-copy { transition: none; }
@@ -1227,4 +1227,18 @@ a:active, button:active { scale: .97; }
 }
 @media (min-width: 1001px) and (min-height: 650px) {
   .piece, .thread { height: 100svh; min-height: 100svh; }
+}
+
+/* Editorial ending: a return arrow, the phrase and the official signature. */
+.footer { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; gap: 4svh; height: 100svh; min-height: 100svh; padding: 100px 5vw 4svh; }
+.footer-return { justify-self: end; display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid currentColor; border-radius: 50%; }
+.footer-return svg { transition: translate .2s var(--ease); }
+.footer-return:hover svg { translate: 0 -4px; }
+.footer-scene { display: flex; align-items: center; padding: 0; min-height: 0; }
+@media (max-width: 1000px) {
+  .footer { padding-inline: 6vw; }
+  .footer-scene h2 { font-size: clamp(62px, 16vw, 110px); }
+}
+@media (max-height: 649px) {
+  .footer { height: auto; min-height: 100svh; grid-template-rows: auto auto auto; gap: 36px; overflow: visible; }
 }
