@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+.env*
+/WhatsApp*
+/SaiDaReta - Caio costurando a rua.png
+
+.superpowers/
+
+.img2threejs/

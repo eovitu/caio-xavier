@@ -1,0 +1,162 @@
+TOP {
+  y: 0,
+  nav: [ { rect: [Object], transform: 'none' } ],
+  motion: [
+    {
+      tag: 'DIV',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, -130, -130)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, 0, -50)',
+      opacity: '1'
+    }
+  ]
+}
+SCROLL_200MS {
+  y: 502,
+  nav: [ { rect: [Object], transform: 'none' } ],
+  motion: [
+    {
+      tag: 'DIV',
+      text: 'Augen Pro is the first to engineer AI-driven, ',
+      transform: 'matrix(1, 0, 0, 1, 0, 50)',
+      opacity: '0'
+    },
+    {
+      tag: 'DIV',
+      text: 'general-purpose Computing designed ',
+      transform: 'matrix(1, 0, 0, 1, 0, 50)',
+      opacity: '0'
+    },
+    {
+      tag: 'DIV',
+      text: 'to enhance everyday life.to improve people’s life.',
+      transform: 'matrix(1, 0, 0, 1, 0, 50)',
+      opacity: '0'
+    },
+    {
+      tag: 'DIV',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, -130, -130)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, 0, -50)',
+      opacity: '1'
+    }
+  ]
+}
+SCROLL_SETTLED {
+  y: 700,
+  nav: [ { rect: [Object], transform: 'none' } ],
+  motion: [
+    {
+      tag: 'DIV',
+      text: 'Augen Pro is the first to engineer AI-driven, ',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: 'general-purpose Computing designed ',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: 'to enhance everyday life.to improve people’s life.',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'A',
+      text: 'Research Insight',
+      transform: 'matrix(1, 0, 0, 1, 0, 0.0075)',
+      opacity: '0.9998'
+    },
+    {
+      tag: 'svg',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, 25, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'svg',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, -130, -130)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, 0, -50)',
+      opacity: '1'
+    }
+  ]
+}
+SCROLL_UP {
+  y: 1200,
+  nav: [ { rect: [Object], transform: 'none' } ],
+  motion: [
+    {
+      tag: 'DIV',
+      text: 'Augen Pro is the first to engineer AI-driven, ',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: 'general-purpose Computing designed ',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: 'to enhance everyday life.to improve people’s life.',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'A',
+      text: 'Research Insight',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'svg',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, 25, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'svg',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: 'Smarter, smaller AI health tools ',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    },
+    {
+      tag: 'DIV',
+      text: '',
+      transform: 'matrix(1, 0, 0, 1, 0, 0)',
+      opacity: '1'
+    }
+  ]
+}

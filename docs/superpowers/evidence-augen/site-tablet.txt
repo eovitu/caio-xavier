@@ -1,0 +1,3 @@
+761 { copyBottom: 520, photoTop: 554, overlap: false, scrollWidth: 761 }
+768 { copyBottom: 520, photoTop: 554, overlap: false, scrollWidth: 768 }
+1000 { copyBottom: 520, photoTop: 554, overlap: false, scrollWidth: 1000 }
