@@ -190,7 +190,7 @@ export default function Home() {
       });
       const media = gsap.matchMedia();
       sceneMedia = media;
-      media.add("(min-width: 1001px) and (min-height: 650px)", () => {
+      media.add("(min-width: 1001px) and (min-height: 650px), (min-width: 350px) and (max-width: 1000px) and (min-height: 650px) and (orientation: portrait)", () => {
         const frames = gsap.utils.toArray<HTMLElement>(".detail-frame");
         const copies = gsap.utils.toArray<HTMLElement>(".detail-copy");
         gsap.set([...frames, ...copies], { opacity: 0 });
@@ -207,13 +207,15 @@ export default function Home() {
           .to([frames[1], copies[1]], { opacity: 0, duration: 0.12, ease: "none" }, 0.61)
           .to([frames[2], copies[2]], { opacity: 1, duration: 0.12, ease: "none" }, 0.61);
         pieceScroll.current = reading.scrollTrigger || null;
+        return () => { pieceScroll.current = null; };
+      });
+      media.add("(min-width: 1001px) and (min-height: 650px)", () => {
         const stitch = gsap.timeline({ scrollTrigger: {
           trigger: ".thread-track", start: "top top", end: "bottom bottom",
           scrub: 0.35, invalidateOnRefresh: true,
         } });
         stitch.fromTo(".thread-path", { strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1, ease: "none" })
           .fromTo(".thread h2", { xPercent: -4 }, { xPercent: 4, duration: 1, ease: "none" }, 0);
-        return () => { pieceScroll.current = null; };
       });
       media.add("(max-width: 1000px), (max-height: 649px)", () => {
         gsap.fromTo(".thread-path", { strokeDashoffset: 1 }, {
@@ -227,20 +229,13 @@ export default function Home() {
           trigger: ".atelier", start: "top 90%", end: "top 10%", scrub: 0.4,
         },
       });
-      gsap.fromTo(
-        ".street-title",
-        { xPercent: 9 },
-        {
-          xPercent: -9,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".street",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
+      media.add("(min-width: 1001px)", () => {
+        gsap.fromTo(".street-title", { xPercent: 9 }, {
+          xPercent: -9, ease: "none", scrollTrigger: {
+            trigger: ".street", start: "top bottom", end: "bottom top", scrub: true,
           },
-        },
-      );
+        });
+      });
       gsap.from(".footer-signature", {
         yPercent: 26,
         opacity: 0.3,
@@ -526,7 +521,7 @@ export default function Home() {
                   </button>
                 ))}
               </div>
-              <div className="detail-description" aria-live="polite">
+              <div className="detail-description" aria-label="Detalhes da peça">
                 {details.map((item, index) => (
                   <div className="detail-copy" key={item.name} data-active={detail === index} aria-hidden={detail !== index}>
                     <h3>{item.title}</h3>
