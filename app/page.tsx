@@ -570,8 +570,8 @@ export default function Home() {
               de sair.
             </h2>
             <p>
-              Uma mesa, a máquina, tecido por perto. É aqui que a ideia começa a
-              ganhar corpo.
+              Caio Xavier costura bolsas e outras peças. As fotos mostram o
+              tecido na bancada, o trabalho na máquina e as peças em uso.
             </p>
           </div>
           <div className="atelier-gallery">
