@@ -66,6 +66,7 @@ function Photo({
 
 export default function Home() {
   const root = useRef<HTMLDivElement>(null);
+  const header = useRef<HTMLElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const detailContent = useRef<HTMLDivElement>(null);
   const [menu, setMenu] = useState(false);
@@ -244,6 +245,24 @@ export default function Home() {
   }, [reduced]);
 
   useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const midpoint = header.current ? header.current.getBoundingClientRect().top + header.current.offsetHeight / 2 : 50;
+      const scene = Array.from(document.querySelectorAll<HTMLElement>("[data-tone]")).find((element) => {
+        const bounds = element.getBoundingClientRect();
+        return bounds.top <= midpoint && bounds.bottom > midpoint;
+      });
+      if (header.current) header.current.dataset.surface = scene?.dataset.tone || "paper";
+    };
+    const scroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("resize", scroll);
+    update();
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", scroll); window.removeEventListener("resize", scroll); };
+  }, []);
+
+  useEffect(() => {
     const media = window.matchMedia("(min-width: 1001px)");
     const reset = () => { if (media.matches) setMenu(false); };
     const outside = (event: PointerEvent) => {
@@ -298,7 +317,7 @@ export default function Home() {
       <a className="skip" href="#manifesto">
         Pular para o conteúdo
       </a>
-      <header className="header" data-menu={menu}>
+      <header className="header" ref={header} data-menu={menu}>
         <a className="brand" href="#inicio" aria-label="SaiDaReta, início">
           <Image
             src="/brand/assinatura.svg"
@@ -314,9 +333,14 @@ export default function Home() {
             </a>
           ))}
         </nav>
+        <div className="header-actions">
         <a className="contact-button" href="tel:+5511979879591" aria-label="Ligar para Caio Xavier: (11) 97987-9591">
           <span>Contato</span><span className="contact-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 3 3 5-2.3 2.4a15 15 0 0 0 5.9 5.9L16 14l5 3c-.4 3-2.1 4.2-4.3 3.8C10.4 19.7 4.3 13.6 3.2 7.3 2.8 5.1 4 3.4 7 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /></svg></span>
         </a>
+        <a className="instagram-link" href="https://www.instagram.com/originalvier/" aria-label="Instagram de Caio Xavier, @originalvier" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        </a>
+        </div>
         <button
           className="menu-button"
           ref={menuButton}
