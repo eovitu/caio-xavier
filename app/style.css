@@ -26,6 +26,7 @@
   box-sizing: border-box;
 }
 html {
+  background: var(--wine);
   scroll-padding-top: 100px;
   scrollbar-color: var(--wine) var(--paper);
 }
@@ -1247,7 +1248,11 @@ a:active, button:active { scale: .97; }
 @media (max-width: 1000px) {
   .header { top: max(12px, env(safe-area-inset-top, 0px)); }
   .hero { padding-top: calc(100px + env(safe-area-inset-top, 0px)); }
-  .footer { padding-top: calc(100px + env(safe-area-inset-top, 0px)); }
+  .footer {
+    min-height: 100dvh;
+    padding-top: calc(100px + env(safe-area-inset-top, 0px));
+  }
+  .piece-track { background: var(--wine); }
   .detail-tabs button svg { display: none; }
   .detail-tabs button { position: relative; justify-content: center; min-height: 44px; border: 0; padding: 10px 4px; }
   .detail-tabs button::after { content: ""; position: absolute; bottom: 0; left: 4px; right: 4px; height: 2px; background: currentColor; opacity: .25; transition: opacity .2s; }
