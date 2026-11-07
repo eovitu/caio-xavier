@@ -1106,3 +1106,10 @@ a:active, button:active { scale: .97; }
   .brand img { width: 115px; }
   .menu-button { font-size: 13px; gap: 8px; }
 }
+
+.footer-scene { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+.footer-scene h2 { min-width: 0; }
+@media (max-width: 1000px) {
+  .footer-scene h2 { font-size: 15vw; }
+  .footer-emblem { width: 18vw; height: 18vw; }
+}

@@ -12,12 +12,12 @@ Cliques em links e botões recebem pulso de escala de 240ms, inclusive ativaçã
 
 ## Verificação local
 
-- npm run lint: exit0.
-- npm run typecheck: exit0.
-- npm run build: exit0, Next16.4.5, rota / estática, 5/5 páginas.
+- npm run lint: exit 0.
+- npm run typecheck: exit 0.
+- npm run build: exit 0, Next 16.4.5, rota / estática, 5/5 páginas.
 - git diff --check: sem erros.
 - Detector mecânico Impeccable em app/page.tsx e app/style.css: lista vazia.
-- Revisão Chromium pelo controlador em 1440×900,390 × 844 e640 × 320: zero overflow horizontal; header fixo; desktop sem menu; tablet/celular sem navegação desktop; telefone correto. Menu permanece montado aos 80ms da saída e desmonta aos 530ms. Após correção de especificidade da passagem do fio, nenhuma seção ou rodapé ficou abaixo da altura da viewport. Capturas em docs/evidence-header.
+- Revisão Chromium pelo controlador em 1440 × 900, 390 × 844 e 640 × 320: zero overflow horizontal; header fixo; desktop sem menu; tablet/celular sem navegação desktop; telefone correto. Menu permanece montado aos 80ms da saída e desmonta aos 530ms. Após correção de especificidade da passagem do fio, nenhuma seção ou rodapé ficou abaixo da altura da viewport. Capturas em docs/evidence-header.
 
 Em movimento reduzido, 390 × 844: Enter abriu o menu, Escape fechou, foco retornou ao botão e o painel foi removido (count 0). Capturas adicionais da peça, ateliê e rodapé em docs/evidence-header.
 
@@ -28,3 +28,5 @@ PR 1 https://github.com/eovitu/caio-xavier/pull/1 teve descrição corrigida par
 Nova branch feature/header-motion criada da develop atualizada. Commits 4527c75 (tipografia/cenas), ba703be (header/menu) e f45e8cc (especificidade da altura). PR 2: https://github.com/eovitu/caio-xavier/pull/2. Release develop→main será registrada após aprovação do CI. Não houve deploy por CLI. Vercel está sendo configurada pelo usuário/controlador, confirmação de produção é separada de merge e CI.
 
 Limites: não há validação em aparelho físico, leitor de tela ou Safari/Firefox nesta unidade. A abertura real do discador depende de aplicativo de chamadas disponível no dispositivo.
+
+Rodapé mobile: corrigida largura mínima automática do título com grid minmax(0,1fr), título 15vw e emblema 18vw até 1000px. Revisão visual pelo controlador confirmou emblema inteiro após o ajuste. Lint, tipos e build repetidos no ajuste: exit 0.
