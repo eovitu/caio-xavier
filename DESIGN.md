@@ -8,10 +8,12 @@ Cores: papel #f1eee7, tinta #352329, bordô #531b2b, laranja #e85b30, azul #172e
 
 Movimento: abertura por recorte e escala; entrada escalonada do texto; parallax da foto; ponteiro desloca a hero até 8px horizontal e 6px vertical; manifesto revela a ênfase por progresso; imagens acompanham scroll; fio desenha seu percurso; frase da rua atravessa a tela; rodapé revela assinatura e gira emblema. Botões trocam foto/texto em até 280ms, com imagens montadas para reduzir vazio no clique. Header permanece fixo e totalmente transparente, sem background, backdrop-filter, borda ou sombra. Em desktop: assinatura à esquerda, navegação central e contato/Instagram à direita. Até 1000px: contato e menu disclosure com entrada/saída animadas. Texto adapta a cor à superfície atual. O painel mobile mantém fundo claro para leitura. Todos os controles têm pulso de clique discreto, removido com movimento reduzido.
 
-GSAP possui contexto com reversão; Lenis tem ticker e instância removidos no cleanup. Promessa de fontes verifica descarte antes de atualizar. Movimento reduzido remove Lenis, parallax, scrub, entrada e deslocamento do ponteiro. Não há sticky prolongado, WebGL ou vistas guiadas por scroll.
+GSAP possui contexto com reversão; Lenis tem ticker e instância removidos no cleanup. Promessa de fontes verifica descarte antes de atualizar. Movimento reduzido remove Lenis, parallax, scrub, entrada e deslocamento do ponteiro. Não há WebGL. Peça e fio têm pin e scrub no desktop conforme pedido posterior; movimento reduzido e viewports curtas/estreitas mantêm fluxo sem pin.
 
 Menu disclosure, Escape retorna foco, alvos nativos e foco visível. Painel limitado à viewport e com rolagem própria, isolada do Lenis. Layout verificado em Chromium desktop, mobile e paisagem; isso não comprova dispositivo físico ou leitor de tela.
 
 Fotografias em public são fornecidas pelo usuário; nenhuma imagem ou fonte proprietária de Augen foi incorporada. Capturas de referência são evidência de estudo, não assets do site.
 
 Refinamento de 6 de novembro: seções e rodapé com largura total e mínimo 100svh, sem limitar crescimento pelo conteúdo. Telefone confirmado tel:+5511979879591; Instagram @originalvier, https://www.instagram.com/originalvier/. Ícone provisório reutiliza o emblema oficial. Fontes locais com licença, sem copiar fonte de Augen.
+
+Direção atual de cenas: detalhes de entrada/reload, limpeza de hash, dimensões e pins estão em docs/scene-transitions-release.md. Essa unidade substitui a decisão anterior de não usar pin: peça e fio possuem agora ScrollTrigger pin/scrub reversível no desktop, por pedido explícito do usuário. Viewports estreitas/curtas e movimento reduzido mantêm fluxo sem pin.

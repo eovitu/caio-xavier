@@ -67,6 +67,10 @@ function Photo({
 export default function Home() {
   const root = useRef<HTMLDivElement>(null);
   const header = useRef<HTMLElement>(null);
+  const curtain = useRef<HTMLDivElement>(null);
+  const hashTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pieceScroll = useRef<ScrollTrigger | null>(null);
+  const smoothScroll = useRef<Lenis | null>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const detailContent = useRef<HTMLDivElement>(null);
   const [menu, setMenu] = useState(false);
@@ -74,11 +78,39 @@ export default function Home() {
   const reduced = useReducedMotion() === true;
 
   useEffect(() => {
+    const panel = curtain.current;
+    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    const reload = navigation?.type === "reload";
+    const previousRestoration = history.scrollRestoration;
+    history.scrollRestoration = "manual";
+    if (location.hash) history.replaceState(history.state, "", location.pathname + location.search);
+    window.scrollTo({ top: 0, behavior: "instant" });
+    if (!panel) return;
+    panel.dataset.navigation = reload ? "reload" : "entry";
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const context = gsap.context(() => {
+      if (reduce) { gsap.set(panel, { display: "none" }); return; }
+      const timeline = gsap.timeline({ onComplete: () => { panel.style.display = "none"; } });
+      timeline.fromTo(panel.querySelector("img"),
+        reload ? { scale: 0.88, opacity: 0.3 } : { y: 35, opacity: 0 },
+        { scale: 1, y: 0, opacity: 1, duration: 0.48, ease: "power3.out" })
+        .to(panel, { clipPath: reload ? "inset(0 0 0 100%)" : "inset(0 0 100% 0)", duration: 0.65, ease: "expo.inOut" }, 0.4);
+    }, panel);
+    return () => {
+      context.revert();
+      history.scrollRestoration = previousRestoration;
+      if (hashTimer.current) clearTimeout(hashTimer.current);
+    };
+  }, []);
+
+  useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     let disposed = false;
+    let sceneMedia: gsap.MatchMedia | null = null;
     const lenis = reduced
       ? null
       : new Lenis({ smoothWheel: true, anchors: true, duration: 0.85 });
+    smoothScroll.current = lenis;
     const tick = (time: number) => lenis?.raf(time * 1000);
     lenis?.on("scroll", ScrollTrigger.update);
     if (lenis) gsap.ticker.add(tick);
@@ -87,7 +119,8 @@ export default function Home() {
       gsap.from(".hero-image", {
         clipPath: "inset(12% 12% 12% 12%)",
         scale: 1.07,
-        duration: 1.35,
+        duration: 1,
+        delay: 0.78,
         ease: "expo.out",
       });
       gsap.from(".hero-copy > *", {
@@ -96,7 +129,7 @@ export default function Home() {
         duration: 0.9,
         stagger: 0.1,
         ease: "expo.out",
-        delay: 0.12,
+        delay: 0.9,
       });
       gsap.to(".hero-image img", {
         yPercent: 12,
@@ -149,20 +182,40 @@ export default function Home() {
           },
         );
       });
-      gsap.fromTo(
-        ".thread-path",
-        { strokeDashoffset: 1 },
-        {
-          strokeDashoffset: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".thread",
-            start: "top 90%",
-            end: "bottom 40%",
-            scrub: true,
+      gsap.utils.toArray<HTMLElement>("main > section .photo").forEach((photo) => {
+        gsap.fromTo(photo, { clipPath: "inset(8% 0 8% 0)" }, {
+          clipPath: "inset(0% 0 0% 0)", ease: "none",
+          scrollTrigger: { trigger: photo.closest("section"), start: "top 95%", end: "top 20%", scrub: 0.4 },
+        });
+      });
+      const media = gsap.matchMedia();
+      sceneMedia = media;
+      media.add("(min-width: 1001px) and (min-height: 650px)", () => {
+        pieceScroll.current = ScrollTrigger.create({
+          trigger: ".piece", start: "top top", end: () => `+=${window.innerHeight * 2.4}`,
+          pin: true, pinSpacing: true, anticipatePin: 1, invalidateOnRefresh: true,
+          onUpdate: (self) => setDetail(Math.min(2, Math.floor(self.progress * 3))),
+        });
+        const stitch = gsap.timeline({ scrollTrigger: {
+          trigger: ".thread", start: "top top", end: () => `+=${window.innerHeight * 1.5}`,
+          pin: true, pinSpacing: true, scrub: 0.5, anticipatePin: 1, invalidateOnRefresh: true,
+        } });
+        stitch.fromTo(".thread-path", { strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1, ease: "none" })
+          .fromTo(".thread h2", { xPercent: -4 }, { xPercent: 4, duration: 1, ease: "none" }, 0);
+        return () => { pieceScroll.current = null; };
+      });
+      media.add("(max-width: 1000px), (max-height: 649px)", () => {
+        gsap.fromTo(".thread-path", { strokeDashoffset: 1 }, {
+          strokeDashoffset: 0, autoRound: false, ease: "none", scrollTrigger: {
+            trigger: ".thread", start: "top 70%", end: "bottom 40%", scrub: 0.4,
           },
+        });
+      });
+      gsap.fromTo(".atelier-thread path", { strokeDashoffset: 1 }, {
+        strokeDashoffset: 0, autoRound: false, ease: "none", scrollTrigger: {
+          trigger: ".atelier", start: "top 90%", end: "top 10%", scrub: 0.4,
         },
-      );
+      });
       gsap.fromTo(
         ".street-title",
         { xPercent: 9 },
@@ -237,9 +290,12 @@ export default function Home() {
       xTo?.tween.kill();
       yTo?.tween.kill();
       if (photo) gsap.set(photo, { clearProps: "x,y" });
+      sceneMedia?.revert();
       context.revert();
       gsap.ticker.remove(tick);
       lenis?.destroy();
+      smoothScroll.current = null;
+      pieceScroll.current = null;
       window.removeEventListener("load", refresh);
     };
   }, [reduced]);
@@ -311,9 +367,20 @@ export default function Home() {
   return (
     <div ref={root} onClickCapture={(event) => {
       const control = (event.target as Element).closest<HTMLElement>("a, button");
-      if (!control || reduced) return;
+      if (!control) return;
+      if (control instanceof HTMLAnchorElement && control.getAttribute("href")?.startsWith("#")) {
+        if (hashTimer.current) clearTimeout(hashTimer.current);
+        hashTimer.current = setTimeout(() => {
+          history.replaceState(history.state, "", location.pathname + location.search);
+          hashTimer.current = null;
+        }, 1000);
+      }
+      if (reduced) return;
       control.animate([{ scale: "1" }, { scale: "0.96" }, { scale: "1" }], { duration: 240, easing: "cubic-bezier(.16,1,.3,1)" });
     }}>
+      <div className="brand-curtain" ref={curtain} aria-hidden="true">
+        <Image src="/brand/assinatura.svg" alt="" width={790} height={131} priority />
+      </div>
       <a className="skip" href="#manifesto">
         Pular para o conteúdo
       </a>
@@ -468,7 +535,15 @@ export default function Home() {
                     key={item.name}
                     type="button"
                     aria-pressed={detail === index}
-                    onClick={() => setDetail(index)}
+                    onClick={() => {
+                      setDetail(index);
+                      const timeline = pieceScroll.current;
+                      if (timeline) {
+                        const target = timeline.start + (timeline.end - timeline.start) * ((index + 0.4) / 3);
+                        if (smoothScroll.current) smoothScroll.current.scrollTo(target, { duration: 0.65 });
+                        else window.scrollTo({ top: target, behavior: "smooth" });
+                      }
+                    }}
                   >
                     {item.name}
                     <Arrow />
@@ -492,6 +567,8 @@ export default function Home() {
             <path
               className="thread-path"
               pathLength="1"
+              strokeDasharray="1 1"
+              strokeDashoffset="1"
               d="M-30 300C170 30 340 530 560 240S930 -40 1040 240S1270 470 1470 130"
             />
           </svg>
@@ -499,6 +576,9 @@ export default function Home() {
           <p>Entre a ideia e a rua, tem o fazer.</p>
         </section>
         <section className="atelier section-pad" id="caio" data-tone="paper">
+          <svg className="atelier-thread" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+            <path pathLength="1" strokeDasharray="1 1" strokeDashoffset="1" d="M1470 0C1190 40 1350 230 1080 170S850 350 680 400" />
+          </svg>
           <div className="section-label">O ateliê</div>
           <div className="atelier-intro" data-reveal>
             <h2>
