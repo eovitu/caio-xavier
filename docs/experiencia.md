@@ -1,19 +1,19 @@
 # Experiência e mídia
 
-## Abertura
+## Abertura e exploração
 
-Three.js renderiza uma bolsa procedural inspirada no acervo. O modelo tem corpo com espessura, textura de trama, bolso, alça, zíper e pesponto. É um estudo de forma. Para reproduzir uma peça específica, precisamos de vistas consistentes da frente, verso, laterais e ferragens.
+A abertura clara combina título e fotografia real da bolsa em uso. A seção da peça possui três botões: A forma, O fazer e O caminho. Eles alternam fotografias e descrições sem depender de rolagem ou WebGL. O estudo tridimensional foi rejeitado pelo usuário e removido em 6 de novembro de 2026.
 
-GSAP ScrollTrigger controla a rotação, aproximação e a linha que conduz à história. Lenis suaviza a rolagem de roda. Motion anima a troca de texto. Os botões oferecem acesso direto às três vistas. Com movimento reduzido, a rolagem volta ao comportamento padrão e as vistas mudam por botão.
+GSAP ScrollTrigger controla entrada, revelação, parallax, fio, frase da rua e assinatura no rodapé. Lenis suaviza a roda, preservando navegação por âncoras e rolagem nativa no menu. O ponteiro desloca levemente a fotografia da abertura. Movimento reduzido desativa essa coreografia e conserva o conteúdo e os botões.
 
 ## Conteúdo
 
-A home passa do preto com rosa ao bordô, marrom e azul. As fotos mostram materiais e bancada. Fotos com clientes e o relato sobre a avó aguardam confirmação para publicação. A disponibilidade de peças e a venda ainda são decisões de produto.
+Fotos, assinatura e emblema são do acervo fornecido pelo usuário. Textos editoriais não estabelecem biografia, disponibilidade ou venda. O rebranding usa a gramática de espaço e movimento de Augen sem incorporar identidade, imagens ou código externo.
 
 ## PWA
 
-A base contém manifest, ícone e uma tela offline para navegações sem rede. O service worker registra apenas no build de produção. Instalação e uso offline em dispositivos precisam de validação separada.
+A base mantém manifest, ícone e tela offline. O service worker registra apenas em produção. Instalação e uso offline em dispositivo físico seguem sem validação nesta entrega.
 
-## Revisão visual
+## Revisão
 
-Teste a primeira dobra, as três vistas por rolagem e teclado, a passagem da linha para a história e o layout estreito. Verifique movimento reduzido e a ilustração de fallback quando WebGL estiver indisponível.
+Verifique abertura e rodapé no desktop e celular, três seleções da peça, mouse, menu em paisagem, Escape e foco, header na subida/descida e movimento reduzido. Evidências e limites estão no relatório de rebranding.
