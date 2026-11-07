@@ -1,0 +1,14 @@
+# SaiDaReta
+
+> Portfólio de Caio Xavier, com bolsas e peças que ele costura, fotos do ateliê e das criações em uso.
+
+## Portfólio
+
+- [SaiDaReta](https://saidareta.vercel.app/): página principal do portfólio.
+- [Fora do molde](https://saidareta.vercel.app/#peca): fotografias da peça, da bancada e do uso na rua.
+- [O ateliê](https://saidareta.vercel.app/#caio): processo de costura e retrato de Caio Xavier.
+- [A rua veste](https://saidareta.vercel.app/#rua): fotografias das peças em uso.
+
+## Optional
+
+- [Instagram de Caio Xavier](https://www.instagram.com/originalvier/): perfil vinculado no portfólio.
