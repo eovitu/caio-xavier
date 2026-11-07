@@ -1,14 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { MotionConfig, motion, useReducedMotion } from 'motion/react';
 
-const Bag = dynamic(() => import('./bag').then((module) => module.Bag), { ssr: false });
 const chapters = [
   { name: 'Peça inteira', title: 'Da rua\npro ponto.', copy: 'Uma bolsa transversal em jeans. Role para ver como a peça muda de lado.' },
   { name: 'Perfil e alça', title: 'De outro\nângulo.', copy: 'A volta revela o volume, a alça e o bolso que muda a silhueta.' },
@@ -85,7 +83,6 @@ export default function Home() {
           <div className="showcase">
             <span className="index">0{chapter + 1} / 03</span>
             <div className="model-fallback"><Image src="/bolsa.svg" alt="Ilustração da bolsa transversal" fill sizes="(max-width: 720px) 90vw, 50vw" priority /></div>
-            <Bag progress={progress} reduced={reduced} />
             <div className="meter" aria-hidden="true"><span /></div>
             <p className="caption">Estudo 3D inspirado no acervo</p>
           </div>
