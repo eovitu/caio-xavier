@@ -1,4 +1,11 @@
 @font-face {
+  font-family: Manrope;
+  src: url("/fonts/Manrope-Variable.ttf") format("truetype");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: Anton;
   src: url("/fonts/Anton-Regular.ttf") format("truetype");
   font-weight: 400;
@@ -26,7 +33,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Manrope, sans-serif;
   font-size: 18px;
 }
 ::selection {
@@ -136,10 +143,6 @@ svg {
   transition:
     transform 0.25s var(--ease),
     opacity 0.2s var(--ease);
-}
-.header[data-hidden="true"]:not([data-menu="true"]):not(:focus-within) {
-  transform: translate(-50%, -150%);
-  opacity: 0;
 }
 .brand {
   display: flex;
@@ -1055,4 +1058,51 @@ figcaption {
     bottom: auto;
     margin-top: 24px;
   }
+}
+
+/* Fixed navigation and full-height editorial scenes. */
+.header {
+  top: 18px;
+  width: calc(100% - 10vw);
+  max-width: none;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  padding: 10px 16px 10px 22px;
+  background: #f1eee7f5;
+}
+.brand { justify-self: start; }
+.desktop-nav { justify-self: center; gap: clamp(22px, 2.6vw, 44px); }
+.desktop-nav a { font-size: 15px; font-weight: 500; }
+.contact-button { justify-self: end; display: inline-flex; align-items: center; gap: 16px; font-size: 14px; font-weight: 500; min-height: 44px; }
+.contact-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px; color: var(--paper); background: var(--wine); transition: background .2s, transform .2s var(--ease); }
+.contact-button:hover .contact-icon { background: var(--orange); transform: rotate(-7deg); }
+.contact-icon svg { width: 21px; height: 21px; }
+.menu-button { display: none; }
+.menu-panel { display: flex; flex-direction: column; }
+main > section, .footer { width: 100%; min-height: 100svh; }
+.hero { min-height: max(860px, 100svh); height: auto; max-height: none; }
+.idea { align-content: center; }
+.thread { padding-block: 90px; }
+.people { padding-top: 100px; }
+.footer { display: flex; flex-direction: column; justify-content: space-between; }
+.footer-wordmark { flex-shrink: 0; }
+a, button { transition: color .18s, background-color .18s, border-color .18s, scale .18s var(--ease); }
+a:active, button:active { scale: .97; }
+@media (max-width: 1000px) {
+  .header { top: 12px; width: 92vw; grid-template-columns: 1fr auto auto; gap: 20px; padding: 8px 14px; }
+  .desktop-nav { display: none; }
+  .menu-button { display: flex; }
+  .contact-button { gap: 0; }
+  .contact-button > span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .contact-icon { width: 40px; height: 40px; }
+  .menu-panel { max-height: calc(100dvh - 104px); }
+  .hero { min-height: 100svh; }
+  .people { padding-top: 85px; }
+  .footer { padding-top: 45px; }
+}
+@media (max-width: 380px) {
+  .header { gap: 12px; }
+  .brand img { width: 115px; }
+  .menu-button { font-size: 13px; gap: 8px; }
 }
