@@ -17,3 +17,5 @@ Fotografias em public são fornecidas pelo usuário; nenhuma imagem ou fonte pro
 Refinamento de 6 de novembro: seções e rodapé com largura total e mínimo 100svh, sem limitar crescimento pelo conteúdo. Telefone confirmado tel:+5511979879591; Instagram @originalvier, https://www.instagram.com/originalvier/. Ícone provisório reutiliza o emblema oficial. Fontes locais com licença, sem copiar fonte de Augen.
 
 Direção atual de cenas: detalhes de entrada/reload, limpeza de hash, dimensões e pins estão em docs/scene-transitions-release.md. Essa unidade substitui a decisão anterior de não usar pin: peça e fio possuem agora ScrollTrigger pin/scrub reversível no desktop, por pedido explícito do usuário. Viewports estreitas/curtas e movimento reduzido mantêm fluxo sem pin.
+
+Correção de fluidez: narrativa da peça e fio conservam distância de rolagem, agora por wrappers estáveis e CSS sticky, sem pin/spacers gerados pelo ScrollTrigger. GSAP mantém scrub e crossfade contínuo. Hero usa grid real para não sobrepor texto/foto. Lenis1,2s com integração de ticker recomendada. Evidências e limites em docs/scroll-fluidity.md.
