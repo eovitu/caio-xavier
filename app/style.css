@@ -1113,3 +1113,29 @@ a:active, button:active { scale: .97; }
   .footer-scene h2 { font-size: 15vw; }
   .footer-emblem { width: 18vw; height: 18vw; }
 }
+
+/* Transparent navigation: the current editorial surface supplies contrast. */
+.header { background: transparent; backdrop-filter: none; border: 0; box-shadow: none; padding-inline: 0; color: var(--wine); }
+.header-actions { display: flex; align-items: center; justify-self: end; gap: 22px; }
+.contact-button { gap: 10px; }
+.contact-icon { width: 24px; height: 24px; border-radius: 0; background: transparent; color: inherit; }
+.contact-button:hover .contact-icon { background: transparent; color: inherit; }
+.instagram-link { min-width: 28px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.header[data-surface="wine"] { color: var(--paper); }
+.header[data-surface="blue"] { color: var(--yellow); }
+.header[data-surface="wine"] .brand img, .header[data-surface="blue"] .brand img { filter: brightness(0) invert(1); }
+.menu-panel { color: var(--wine); }
+@media (max-width: 1000px) {
+  .header { gap: 20px; background: transparent; padding-inline: 0; }
+  .header-actions { gap: 16px; }
+  .contact-button > span:first-child { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+  .contact-icon { width: 22px; height: 22px; }
+}
+@media (max-width: 480px) {
+  .header { gap: 14px; }
+  .brand img { width: 114px; }
+  .header-actions { gap: 12px; }
+  .contact-button { font-size: 12px; gap: 6px; }
+  .menu-button { font-size: 0; gap: 0; width: 24px; justify-content: center; }
+  .menu-lines { width: 21px; }
+}

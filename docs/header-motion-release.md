@@ -30,3 +30,12 @@ Nova branch feature/header-motion criada da develop atualizada. Commits 4527c75 
 Limites: não há validação em aparelho físico, leitor de tela ou Safari/Firefox nesta unidade. A abertura real do discador depende de aplicativo de chamadas disponível no dispositivo.
 
 Rodapé mobile: corrigida largura mínima automática do título com grid minmax(0,1fr), título 15vw e emblema 18vw até 1000px. Revisão visual pelo controlador confirmou emblema inteiro após o ajuste. Lint, tipos e build repetidos no ajuste: exit 0.
+
+
+## Correção do header transparente
+
+A primeira release foi integrada pela PR 3 https://github.com/eovitu/caio-xavier/pull/3, merge main 94b82bf946bf9bf257a52c4ddf0b25ecfcf2ad72. PR 2 foi integrada em develop pelo merge 20e351c564f38cb30d6fa53d48baf022736defdb, com os 3 checks aprovados no head 1a2a99ad880db561ae78c9868855533e7bf8086c.
+
+Após a release, o usuário pediu header totalmente transparente e Instagram. Novo ciclo na branch fix/header-transparent, criada da develop atualizada, preserva header fixo, remove fundo, filtro, sombra e borda, e adapta cor de texto à seção. Contato mantém texto junto ao SVG simples do telefone. Instagram @originalvier usa https://www.instagram.com/originalvier/ e SVG próprio. O painel do menu conserva fundo para leitura.
+
+Header transparente: lint, tipos e build passaram. Revisão Chromium pelo controlador em 1440 × 900, 390 × 844 e 640 × 320 aprovou desktop/celular, Instagram e contato sem caixa. Sem cortes ou overflow; abertura e saída do menu mantidas. Capturas header-review atualizadas.
