@@ -511,7 +511,12 @@ export default function Home() {
                       const timeline = pieceScroll.current;
                       if (timeline) {
                         const target = timeline.start + (timeline.end - timeline.start) * ((index + 0.4) / 3);
-                        if (smoothScroll.current) smoothScroll.current.scrollTo(target, { duration: 0.65 });
+                        if (smoothScroll.current) {
+                          const compact = window.matchMedia("(max-width: 1000px)").matches;
+                          smoothScroll.current.scrollTo(target, compact
+                            ? { duration: 0.38, easing: (progress) => progress * progress * (3 - 2 * progress) }
+                            : { duration: 0.65 });
+                        }
                         else window.scrollTo({ top: target, behavior: "smooth" });
                       }
                     }}
