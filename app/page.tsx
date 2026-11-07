@@ -241,20 +241,6 @@ export default function Home() {
           },
         },
       );
-      gsap.fromTo(
-        ".footer-emblem",
-        { rotation: -22 },
-        {
-          rotation: 22,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".footer",
-            start: "top bottom",
-            end: "bottom bottom",
-            scrub: true,
-          },
-        },
-      );
       gsap.from(".footer-signature", {
         yPercent: 26,
         opacity: 0.3,
@@ -657,25 +643,15 @@ export default function Home() {
         </section>
       </main>
       <footer className="footer section-pad" data-tone="wine">
-        <div className="footer-top">
-          <p>O caminho não acaba aqui.</p>
-          <a className="text-link" href="#inicio">
-            Voltar ao começo <Arrow up />
-          </a>
-        </div>
+        <a className="footer-return" href="#inicio" aria-label="Voltar ao início">
+          <Arrow up />
+        </a>
         <div className="footer-scene">
           <h2>
             Continua
             <br />
             <em>na rua.</em>
           </h2>
-          <Image
-            className="footer-emblem"
-            src="/brand/emblema.svg"
-            alt=""
-            width={260}
-            height={260}
-          />
         </div>
         <div className="footer-wordmark">
           <Image
@@ -685,17 +661,6 @@ export default function Home() {
             width={790}
             height={131}
           />
-        </div>
-        <div className="footer-bottom">
-          <span>Caio Xavier</span>
-          <nav aria-label="Navegação do rodapé">
-            {links.map(([href, label]) => (
-              <a key={href} href={href}>
-                {label}
-              </a>
-            ))}
-          </nav>
-          <span>Costura em movimento.</span>
         </div>
       </footer>
     </div>
