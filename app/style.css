@@ -1083,7 +1083,7 @@ figcaption {
 main > section, .footer { width: 100%; min-height: 100svh; }
 .hero { min-height: max(860px, 100svh); height: auto; max-height: none; }
 .idea { align-content: center; }
-.thread { padding-block: 90px; }
+.thread { min-height: 100svh; padding-block: 90px; }
 .people { padding-top: 100px; }
 .footer { display: flex; flex-direction: column; justify-content: space-between; }
 .footer-wordmark { flex-shrink: 0; }
