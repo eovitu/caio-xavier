@@ -1113,3 +1113,95 @@ a:active, button:active { scale: .97; }
   .footer-scene h2 { font-size: 15vw; }
   .footer-emblem { width: 18vw; height: 18vw; }
 }
+
+/* Transparent navigation: the current editorial surface supplies contrast. */
+.header { background: transparent; backdrop-filter: none; border: 0; box-shadow: none; padding-inline: 0; color: var(--wine); }
+.header-actions { display: flex; align-items: center; justify-self: end; gap: 22px; }
+.contact-button { gap: 10px; }
+.contact-icon { width: 24px; height: 24px; border-radius: 0; background: transparent; color: inherit; }
+.contact-button:hover .contact-icon { background: transparent; color: inherit; }
+.instagram-link { min-width: 28px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.header[data-surface="wine"] { color: var(--paper); }
+.header[data-surface="blue"] { color: var(--yellow); }
+.header[data-surface="wine"] .brand img, .header[data-surface="blue"] .brand img { filter: brightness(0) invert(1); }
+.menu-panel { color: var(--wine); }
+@media (max-width: 1000px) {
+  .header { gap: 20px; background: transparent; padding-inline: 0; }
+  .header-actions { gap: 16px; }
+  .contact-button > span:first-child { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+  .contact-icon { width: 22px; height: 22px; }
+}
+@media (max-width: 480px) {
+  .header { gap: 14px; }
+  .brand img { width: 114px; }
+  .header-actions { gap: 12px; }
+  .contact-button { font-size: 12px; gap: 6px; }
+  .menu-button { font-size: 0; gap: 0; width: 24px; justify-content: center; }
+  .menu-lines { width: 21px; }
+}
+
+.brand-curtain { position: fixed; inset: 0; z-index: 100; background: var(--wine); display: grid; place-items: center; pointer-events: none; }
+.brand-curtain img { width: min(66vw, 620px); height: auto; filter: brightness(0) invert(1); }
+@media (prefers-reduced-motion: reduce) { .brand-curtain { display: none; } }
+/* One scene per viewport on ordinary desktop sizes. Content stays in flow on
+   short/zoomed and narrow viewports rather than being hidden or compressed. */
+@media (min-width: 1001px) and (min-height: 650px) {
+  main > section, .footer { height: 100svh; min-height: 100svh; max-height: none; }
+  .section-pad, .street, .people { padding: clamp(96px, 12svh, 130px) 5vw clamp(32px, 5svh, 64px); }
+  .hero { min-height: 100svh; height: 100svh; padding-top: 115px; }
+  .hero-copy { top: 32%; }
+  .hero h1 { font-size: clamp(68px, 10.5svh, 116px); }
+  .hero-copy p { margin-block: 24px; font-size: 20px; }
+  .idea { align-content: center; }
+  .piece { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 3svh; }
+  .section-heading { margin-bottom: 0; }
+  .section-heading h2 { font-size: clamp(58px, 8svh, 96px); }
+  .section-heading p { font-size: 20px; }
+  .detail-layout { min-height: 0; gap: 7vw; }
+  .detail-image { height: 100%; min-height: 0; }
+  .detail-side { padding-top: 0; min-height: 0; }
+  .detail-tabs button { padding-block: 14px; min-height: 56px; font-size: 23px; }
+  .detail-description { margin-top: 3svh; }
+  .detail-description h3 { font-size: 32px; }
+  .detail-description p { font-size: 18px; margin-top: 16px; }
+  .detail-note { padding-top: 18px; }
+  .thread { min-height: 100svh; }
+  .atelier { grid-template-rows: auto minmax(0, 1fr); row-gap: 3svh; }
+  .atelier-intro h2 { font-size: clamp(58px, 7.4svh, 92px); }
+  .atelier-intro p { max-width: 44ch; font-size: 18px; margin-top: 18px; }
+  .atelier-gallery { margin-top: 0; min-height: 0; gap: 8vw; }
+  .work-photo { height: 100%; min-height: 0; }
+  .portrait { height: 85%; margin-bottom: 0; min-height: 0; }
+  .street { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+  .street-title { font-size: clamp(90px, 15svh, 180px); padding-bottom: 3svh; }
+  .street-layout { min-height: 0; gap: 7vw; }
+  .street-image { height: 100%; min-height: 0; }
+  .street-copy h2 { font-size: 28px; margin-bottom: 22px; }
+  .street-copy p { font-size: clamp(30px, 4.2svh, 48px); }
+  .street-copy .pill-link { margin-top: 28px; }
+  .material-photo { height: 100%; min-height: 0; }
+  .material h2 { font-size: clamp(52px, 7.5svh, 84px); }
+  .material p { font-size: 20px; margin-top: 25px; }
+  .material > div > img { margin-top: 32px; width: 64px; height: 64px; }
+  .people { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+  .people-caption { padding-bottom: 3svh; }
+  .people-caption h2 { font-size: clamp(48px, 7svh, 84px); }
+  .people-image { height: 100%; min-height: 0; }
+  .footer { display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; gap: 3svh; padding-top: 7svh; padding-bottom: 3svh; }
+  .footer-scene { padding: 0; min-height: 0; }
+  .footer-scene h2 { font-size: clamp(72px, 13svh, 150px); }
+  .footer-emblem { width: min(19vw, 25svh); height: min(19vw, 25svh); }
+  .footer-bottom { margin-top: 0; padding-top: 12px; }
+}
+@media (min-width: 1001px) and (max-height: 649px) {
+  .hero { height: 850px; min-height: 100svh; }
+  .footer { overflow: visible; }
+}
+
+.thread path { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.atelier { position: relative; isolation: isolate; }
+.atelier-thread { position: absolute; top: 0; right: 0; width: 100%; height: 35%; pointer-events: none; z-index: -1; }
+.atelier-thread path { fill: none; stroke: var(--orange); stroke-width: 2; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .thread path, .atelier-thread path { stroke-dashoffset: 0; }
+}
