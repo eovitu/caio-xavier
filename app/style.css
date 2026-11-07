@@ -1211,7 +1211,7 @@ a:active, button:active { scale: .97; }
 .detail-copy { grid-area: 1 / 1; opacity: 0; transition: opacity .28s var(--ease); }
 .detail-copy[data-active="true"] { opacity: 1; }
 @media (min-width: 1001px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
-  .piece-track { height: 340svh; }
+  .piece-track { height: 220svh; }
   .thread-track { height: 250svh; }
   .piece-track > .piece, .thread-track > .thread { position: sticky; top: 0; height: 100svh; min-height: 100svh; }
   .detail-frame, .detail-copy { transition: none; }
