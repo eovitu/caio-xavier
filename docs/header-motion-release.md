@@ -17,12 +17,12 @@ Cliques em links e botões recebem pulso de escala de240ms, inclusive ativação
 - npm run build: exit0, Next16.4.5, rota / estática, 5/5 páginas.
 - git diff --check: sem erros.
 - Detector mecânico Impeccable em app/page.tsx e app/style.css: lista vazia.
-- Revisão visual/runtime e capturas: em andamento pelo controlador da tarefa, resultado antes do merge.
+- Revisão Chromium pelo controlador em1440×900,390×844 e640×320: zero overflow horizontal; header fixo; desktop sem menu; tablet/celular sem navegação desktop; telefone correto. Menu permanece montado aos80ms da saída e desmonta aos530ms. Após correção de especificidade da passagem do fio, nenhuma seção ou rodapé ficou abaixo da altura da viewport. Capturas em docs/evidence-header.
 
 ## Publicação
 
 PR1 https://github.com/eovitu/caio-xavier/pull/1 teve descrição corrigida para refletir remoção do3D e implementação fotográfica. CI passou; MERGEABLE. Merge autorizado para develop em15d959d8cc42f136d76e6ecfc2f867ed06d9fb4b. Branch feature/site-base removida local/remota depois do merge.
 
-Nova branch feature/header-motion criada da develop atualizada. PR de refinamento e release serão registrados após publicação. Não houve deploy por CLI. Vercel está sendo configurada pelo usuário/controlador, confirmação de produção é separada de merge e CI.
+Nova branch feature/header-motion criada da develop atualizada. Commits4527c75 (tipografia/cenas),ba703be (header/menu) ef45e8cc (especificidade da altura). PR2: https://github.com/eovitu/caio-xavier/pull/2. Release develop→main será registrada após aprovação do CI. Não houve deploy por CLI. Vercel está sendo configurada pelo usuário/controlador, confirmação de produção é separada de merge e CI.
 
 Limites: não há validação em aparelho físico, leitor de tela ou Safari/Firefox nesta unidade. A abertura real do discador depende de aplicativo de chamadas disponível no dispositivo.
