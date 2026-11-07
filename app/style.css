@@ -1205,3 +1205,26 @@ a:active, button:active { scale: .97; }
 @media (prefers-reduced-motion: reduce) {
   .thread path, .atelier-thread path { stroke-dashoffset: 0; }
 }
+
+/* Browser-owned sticky scenes keep their position continuous at boundaries. */
+.detail-description { display: grid; }
+.detail-copy { grid-area: 1 / 1; opacity: 0; transition: opacity .28s var(--ease); }
+.detail-copy[data-active="true"] { opacity: 1; }
+@media (min-width: 1001px) and (min-height: 650px) and (prefers-reduced-motion: no-preference) {
+  .piece-track { height: 340svh; }
+  .thread-track { height: 250svh; }
+  .piece-track > .piece, .thread-track > .thread { position: sticky; top: 0; height: 100svh; min-height: 100svh; }
+  .detail-frame, .detail-copy { transition: none; }
+}
+@media (min-width: 1001px) {
+  .hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-rows: auto minmax(0, 1fr) auto; column-gap: 4vw; row-gap: 32px; padding: 120px 5vw 28px; }
+  .hero-topline { grid-column: 1 / -1; grid-row: 1; }
+  .hero-image { position: relative; inset: auto; grid-column: 2; grid-row: 2; width: 100%; height: 100%; min-width: 0; min-height: 0; z-index: 0; }
+  .hero-copy { position: relative; inset: auto; grid-column: 1; grid-row: 2; min-width: 0; align-self: center; }
+  .hero h1 { font-size: clamp(58px, 6.5vw, 108px); max-width: 100%; }
+  .hero-copy p { font-size: clamp(17px, 1.4vw, 21px); }
+  .hero-bottom { position: relative; inset: auto; grid-column: 1 / -1; grid-row: 3; }
+}
+@media (min-width: 1001px) and (min-height: 650px) {
+  .piece, .thread { height: 100svh; min-height: 100svh; }
+}

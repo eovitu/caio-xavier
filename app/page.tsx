@@ -109,11 +109,11 @@ export default function Home() {
     let sceneMedia: gsap.MatchMedia | null = null;
     const lenis = reduced
       ? null
-      : new Lenis({ smoothWheel: true, anchors: true, duration: 0.85 });
+      : new Lenis({ smoothWheel: true, syncTouch: false, anchors: true, duration: 1.2, easing: (t: number) => 1 - Math.pow(1 - t, 4) });
     smoothScroll.current = lenis;
     const tick = (time: number) => lenis?.raf(time * 1000);
     lenis?.on("scroll", ScrollTrigger.update);
-    if (lenis) gsap.ticker.add(tick);
+    if (lenis) { gsap.ticker.add(tick); gsap.ticker.lagSmoothing(0); }
     const context = gsap.context(() => {
       if (reduced) return;
       gsap.from(".hero-image", {
@@ -191,14 +191,25 @@ export default function Home() {
       const media = gsap.matchMedia();
       sceneMedia = media;
       media.add("(min-width: 1001px) and (min-height: 650px)", () => {
-        pieceScroll.current = ScrollTrigger.create({
-          trigger: ".piece", start: "top top", end: () => `+=${window.innerHeight * 2.4}`,
-          pin: true, pinSpacing: true, anticipatePin: 1, invalidateOnRefresh: true,
+        const frames = gsap.utils.toArray<HTMLElement>(".detail-frame");
+        const copies = gsap.utils.toArray<HTMLElement>(".detail-copy");
+        gsap.set([...frames, ...copies], { opacity: 0 });
+        gsap.set([frames[0], copies[0]], { opacity: 1 });
+        const reading = gsap.timeline({ scrollTrigger: {
+          trigger: ".piece-track", start: "top top", end: "bottom bottom",
+          scrub: 0.3, invalidateOnRefresh: true,
           onUpdate: (self) => setDetail(Math.min(2, Math.floor(self.progress * 3))),
-        });
+        } });
+        const clock = { progress: 0 };
+        reading.to(clock, { progress: 1, duration: 1, ease: "none" }, 0)
+          .to([frames[0], copies[0]], { opacity: 0, duration: 0.12, ease: "none" }, 0.27)
+          .to([frames[1], copies[1]], { opacity: 1, duration: 0.12, ease: "none" }, 0.27)
+          .to([frames[1], copies[1]], { opacity: 0, duration: 0.12, ease: "none" }, 0.61)
+          .to([frames[2], copies[2]], { opacity: 1, duration: 0.12, ease: "none" }, 0.61);
+        pieceScroll.current = reading.scrollTrigger || null;
         const stitch = gsap.timeline({ scrollTrigger: {
-          trigger: ".thread", start: "top top", end: () => `+=${window.innerHeight * 1.5}`,
-          pin: true, pinSpacing: true, scrub: 0.5, anticipatePin: 1, invalidateOnRefresh: true,
+          trigger: ".thread-track", start: "top top", end: "bottom bottom",
+          scrub: 0.35, invalidateOnRefresh: true,
         } });
         stitch.fromTo(".thread-path", { strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1, ease: "none" })
           .fromTo(".thread h2", { xPercent: -4 }, { xPercent: 4, duration: 1, ease: "none" }, 0);
@@ -279,7 +290,7 @@ export default function Home() {
     hero?.addEventListener("pointermove", move);
     hero?.addEventListener("pointerleave", reset);
     const refresh = () => {
-      if (!disposed) ScrollTrigger.refresh();
+      if (!disposed) { lenis?.resize(); ScrollTrigger.refresh(); }
     };
     document.fonts.ready.then(refresh);
     window.addEventListener("load", refresh);
@@ -341,28 +352,6 @@ export default function Home() {
     return () => document.removeEventListener("keydown", onKey);
   }, [menu]);
 
-  useEffect(() => {
-    if (reduced || !detailContent.current) return;
-    const context = gsap.context(() => {
-      gsap.fromTo(
-        ".detail-image",
-        { opacity: 0.2, scale: 1.025 },
-        { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out" },
-      );
-      gsap.fromTo(
-        ".detail-description > *",
-        { opacity: 0.2, y: 8 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.25,
-          stagger: 0.015,
-          ease: "power2.out",
-        },
-      );
-    }, detailContent);
-    return () => context.revert();
-  }, [detail, reduced]);
 
   return (
     <div ref={root} onClickCapture={(event) => {
@@ -499,7 +488,8 @@ export default function Home() {
             </a>
           </div>
         </section>
-        <section className="piece section-pad" id="peca" data-tone="wine">
+        <div className="piece-track" id="peca">
+        <section className="piece section-pad" data-tone="wine">
           <div className="section-heading" data-reveal>
             <h2>
               Fora do
@@ -551,13 +541,19 @@ export default function Home() {
                 ))}
               </div>
               <div className="detail-description" aria-live="polite">
-                <h3>{details[detail].title}</h3>
-                <p>{details[detail].text}</p>
+                {details.map((item, index) => (
+                  <div className="detail-copy" key={item.name} data-active={detail === index} aria-hidden={detail !== index}>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
+                ))}
               </div>
               <span className="detail-note">Um olhar mais perto.</span>
             </div>
           </div>
         </section>
+        </div>
+        <div className="thread-track">
         <section className="thread" data-tone="orange">
           <svg
             viewBox="0 0 1440 500"
@@ -575,6 +571,7 @@ export default function Home() {
           <h2 data-reveal>Puxa o fio.</h2>
           <p>Entre a ideia e a rua, tem o fazer.</p>
         </section>
+        </div>
         <section className="atelier section-pad" id="caio" data-tone="paper">
           <svg className="atelier-thread" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
             <path pathLength="1" strokeDasharray="1 1" strokeDashoffset="1" d="M1470 0C1190 40 1350 230 1080 170S850 350 680 400" />
