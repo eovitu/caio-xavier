@@ -10,6 +10,8 @@ Movimento: abertura por recorte e escala; entrada escalonada do texto; parallax 
 
 GSAP possui contexto com reversão; Lenis tem ticker e instância removidos no cleanup. Promessa de fontes verifica descarte antes de atualizar. Movimento reduzido remove Lenis, parallax, scrub, entrada e deslocamento do ponteiro. Não há sticky prolongado, WebGL ou vistas guiadas por scroll.
 
-Menu disclosure, Escape retorna foco, alvos nativos e foco visível. Painel limitado à viewport e com rolagem própria, isolada do Lenis. Layout verificado em Chromium desktop, mobile e paisagem; isso não comprova dispositivo físico ou leitor de tela.
+Menu disclosure exclusivo de tablet/celular, Escape retorna foco, alvos nativos e foco visível. Painel limitado à viewport e com rolagem própria, isolada do Lenis. Layout verificado em Chromium desktop, mobile e paisagem; isso não comprova dispositivo físico ou leitor de tela.
 
 Fotografias em public são fornecidas pelo usuário; nenhuma imagem ou fonte proprietária de Augen foi incorporada. Capturas de referência são evidência de estudo, não assets do site.
+
+Refinamento de 6 de novembro: todas as se��es e o rodap� t�m largura total e m�nimo de 100svh, com altura livre conforme conte�do. Contato autorizado abre o discador com tel:+5511979879591. O �cone provis�rio reutiliza o emblema oficial. Nenhuma fonte de Augen foi copiada.
