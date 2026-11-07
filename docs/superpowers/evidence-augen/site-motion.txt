@@ -1,0 +1,40 @@
+{
+  "pointer": "matrix(1, 0, 0, 1, 5.3333, 1.2)",
+  "header": {
+    "down": "true",
+    "up": "false"
+  },
+  "keyboardClick": {
+    "frame80": [
+      {
+        "active": "false",
+        "opacity": "0.160043"
+      },
+      {
+        "active": "true",
+        "opacity": "0.839957"
+      },
+      {
+        "active": "false",
+        "opacity": "0"
+      }
+    ],
+    "frame480": [
+      {
+        "active": "false",
+        "opacity": "0"
+      },
+      {
+        "active": "true",
+        "opacity": "1"
+      },
+      {
+        "active": "false",
+        "opacity": "0"
+      }
+    ]
+  },
+  "reduced": "matrix(1, 0, 0, 1, 0, 0)",
+  "errors": [],
+  "broken": []
+}

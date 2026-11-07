@@ -1,0 +1,10 @@
+TITLE SaiDaReta — Caio Xavier
+CLICK De perto, outro olhar.
+
+Tecido sobre a mesa. Recorte, dobra, costura. O desenho aparece no jeito de juntar tudo isso.
+OVERFLOW { width: 390, scroll: 390 }
+MENU { h: 220, scroll: 298, bottom: 302 }
+ESCAPE true
+REDUCED Fora da bancada.
+
+Na calçada, no encontro, no caminho de volta. A peça ganha outra presença quando encontra a rua.
