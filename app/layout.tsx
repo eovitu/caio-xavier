@@ -23,6 +23,39 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: '#171417' };
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: 'SaiDaReta',
+      description,
+      inLanguage: 'pt-BR',
+      about: { '@id': `${siteUrl}/#caio-xavier` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${siteUrl}/#caio-xavier`,
+      name: 'Caio Xavier',
+      url: `${siteUrl}/#caio`,
+      image: `${siteUrl}/caio.png`,
+      sameAs: ['https://www.instagram.com/originalvier/'],
+    },
+  ],
+};
+
 export default function Layout({children}: Readonly<{children: React.ReactNode}>) {
-  return <html lang="pt-BR"><body>{children}<ServiceWorker /></body></html>;
+  return (
+    <html lang="pt-BR">
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
+        }} />
+        {children}
+        <ServiceWorker />
+      </body>
+    </html>
+  );
 }
